@@ -1,62 +1,86 @@
 # PR2_Data_Cleanser
 
-Advanced Healthcare Data Cleaning & Preprocessing Pipeline
+Project 2: Data Preprocessing & Feature Engineering
 
-📖 Executive Summary
+Patient Health Records — Missing Value Imputation & Outlier Treatment
 
-This project presents a robust data preprocessing pipeline designed to transform raw healthcare records into a high-fidelity dataset suitable for predictive modeling. By addressing data quality issues—specifically missing values and extreme outliers—this pipeline ensures the integrity of the disease_risk prediction model. The implementation utilizes pandas, scikit-learn, and scipy to maintain statistical consistency across 1,000 patient records.
+Objective
 
-📊 Dataset Overview
+Practice Data Preprocessing and Feature Engineering with a strong emphasis on
+handling missing values and outlier detection/removal. The project applies
+different imputation strategies and outlier treatment techniques to clean a
+healthcare dataset and prepare it for machine learning (predicting heart disease risk).
 
-The dataset utilized in this analysis consists of 1,000 patient records containing the following key health metrics:
+Problem Statement
 
-Demographics: patient_id, age, gender, region.
+Working as a Data Analyst for a healthcare company, the dataset contains patient
+health records with missing values and outliers caused by inconsistent reporting
+and measurement errors. The task is to clean the dataset using various missing
+data imputation methods and outlier handling techniques.
 
-Clinical Metrics: bmi, blood_pressure, cholesterol, glucose.
+Dataset
 
-Target Variable: disease_risk (binary classification).
+A synthetic dataset of 1000 patients containing:
 
-The dataset was characterized by non-random missingness across various features and significant outliers in physiological indicators, requiring a multi-faceted cleaning approach.
 
-🛠 Technical Methodology
+Patient demographic details: Age, Gender, Region
+Medical attributes: BMI, Blood Pressure, Cholesterol, Glucose
+Target variable: disease_risk (0 = Low Risk, 1 = High Risk)
 
-1. Missing Value Imputation (Part A)
 
-   
-To mitigate the impact of missing clinical data without introducing bias, we implemented a hierarchical imputation strategy:
+Missing values and outliers were intentionally introduced into specific columns
+to practice different cleaning techniques, as specified in the project brief.
 
-Simple Imputation: Used for baseline cleanup of categorical variables.
+Tasks Covered
 
-Missing Indicator & Random Sampling: Preserved data variance for age and bmi by flagging missing instances before stochastic filling.
+Part A — Handling Missing Values
 
-Multivariate Imputation (KNN & MICE): Employed KNNImputer (k=5) and IterativeImputer to capture feature correlations, ensuring that imputed clinical values align with physiological patterns found in similar patient profiles.
 
-2. Outlier Detection & Treatment (Part B)
+Missing value detection and summary report (% per column)
+Simple Imputer (Numerical) — mean/median on BMI
+Simple Imputer (Categorical) — most frequent for Region
+Most Frequent Imputation — Gender
+Missing Indicator + Random Sample Imputation
+KNN Imputer (multivariate)
+MICE Algorithm (chained equations)
 
-   
-Outlier handling was prioritized to maintain data volume while limiting the influence of extreme physiological measurement errors:
 
-Statistical Filtering: Utilized Z-Score and IQR methods to quantify deviations from the norm.
+Part B — Handling Outliers
 
-Data Preservation: Implemented Winsorization (capping at the 1st and 99th percentiles) rather than row deletion, successfully preserving the integrity of the 1,000-record set.
 
-Performance Comparison: Validated the effectiveness of the pipeline by contrasting dataset statistics and shape before and after treatment.
+Z-score method — Cholesterol & Glucose
+IQR method — BMI
+Percentile method — capping at 1st/99th percentile
+Winsorization — capping extreme values instead of removing rows
+Before vs after comparison of dataset shape and summary statistics
 
-<img width="674" height="558" alt="image" src="https://github.com/user-attachments/assets/767266fa-a432-4808-ab2c-5b006e0f896f" />
 
-<img width="683" height="554" alt="image" src="https://github.com/user-attachments/assets/49d460f2-c4c0-4e19-aa2e-508df65c0a64" />
+Part C — Final Clean Dataset
 
-📝 Part C: Final Dataset & Comparative Summary
 
-Final Dataset Preparation
-The final dataset is a consolidated, clean version of the original raw data. By shifting from aggressive removal methods (Z-Score/IQR) to capping/winsorization methods, we have ensured:
+Combined the best-performing imputation and outlier treatment methods
+into one final, machine-learning-ready dataset
+Written report comparing methods and explaining improvements
 
-Zero Data Loss: All 1,000 original patient records were preserved.
 
-Reduced Variance: Extreme noise that could cause overfitting in predictive models was successfully capped.
+Video Walkthrough
 
-Final Conclusion
-The cleaning process successfully transformed an "unclean" dataset into a model-ready format. The combination of MICE imputation for missing values and Winsorization for outliers provided the best balance between preserving data integrity and removing statistical noise. The resulting dataset is now optimized for supervised machine learning tasks, specifically predicting disease_risk.
-Consistency: All missing values were imputed using context-aware algorithms (MICE/KNN).
+Watch the video here
 
+Summary of Findings
+
+Most effective imputation strategy: KNN / MICE, since both use relationships
+between multiple columns to estimate missing values rather than filling every
+gap with a single fixed number.
+Best outlier handling method: Percentile capping / Winsorization, since
+both preserve all 1000 patient records by capping extreme values instead of
+deleting rows.
+Outcome: A complete dataset with zero missing values and no extreme
+outlier distortion, ready for downstream machine learning tasks such as
+predicting disease_risk.
+
+
+Author
+
+Devanshi
 
